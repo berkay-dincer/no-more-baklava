@@ -1,6 +1,7 @@
 import argparse
 import subprocess
-
+import time
+from ctypes import CDLL
 from FaceRecognizer import FaceRecognize
 
 
@@ -29,17 +30,29 @@ def idleTime():
     return seconds
 
 
+def lock_screen():
+    CDLL('/System/Library/PrivateFrameworks/login.framework/Versions/Current/login').SACLockScreenImmediate()
+
+
 def main(mode, image_count, name):
     recognizer = FaceRecognize()
     if mode == 'train':
         recognizer.capture_images(name=name, image_count=image_count)
         recognizer.train()
     else:
-        print(recognizer.infer())
+        while True:
+            time.sleep(1)
+            print("Baklava check...")
+            if idleTime() > 10:
+                print("Computer is idle we will not eat baklava today..")
+                detected_face = recognizer.infer()[0]
+                print(detected_face)
+                if detected_face not in name:
+                    lock_screen()
+                recognizer.close_camera()
 
 
 if __name__ == '__main__':
-    print(idleTime())
     parser = argparse.ArgumentParser(description='Add some integers.')
     parser.add_argument('mode', type=str, help='mode of execution - train, no-more-baklava')
     parser.add_argument('count', type=int, default=10, help='number of pictures to take for training session.')

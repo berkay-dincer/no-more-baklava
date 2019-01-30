@@ -194,3 +194,7 @@ class FaceRecognize(object):
                 vc.release()
                 break
             return pred
+
+    def close_camera(self):
+        vc = cv2.VideoCapture(0)
+        vc.release()
