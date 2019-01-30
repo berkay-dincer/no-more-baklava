@@ -135,8 +135,21 @@ class FaceRecognize(object):
 
         self.le = le
         self.clf = clf
+        pickle_le = open("le.pickle", "wb")
+        pickle.dump(le, pickle_le)
+        pickle_le.close()
+
+        pickle_clf = open("clf.pickle", "wb")
+        pickle.dump(clf, pickle_clf)
+        pickle_clf.close()
 
     def infer(self):
+        pickle_le = open("le.pickle", "rb")
+        self.le = pickle.load(pickle_le)
+
+        pickle_clf = open("clf.pickle", "rb")
+        self.clf = pickle.load(pickle_clf)
+
         vc = cv2.VideoCapture(0)
         self.vc = vc
         if vc.isOpened():
