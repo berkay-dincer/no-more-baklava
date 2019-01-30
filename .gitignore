@@ -87,7 +87,7 @@ celerybeat-schedule
 *.idea/
 
 # User
-*owner_images/
+images/
 
 # Environments
 .env
