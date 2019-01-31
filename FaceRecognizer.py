@@ -33,7 +33,7 @@ class FaceRecognize(object):
                                                   minNeighbors=3,
                                                   minSize=(100, 100))
             if len(faces) != 0:
-                current_datetime = datetime.datetime.now().strftime("%Y/%m/%d - %H:%M:%S")
+                current_datetime = datetime.datetime.now().strftime("%Y%m%d%H%M%S")
                 image_name = 'images/' + current_datetime + '.jpg'
                 cv2.imwrite(image_name, frame)
                 print("!!!! Saved image at {} find out who was trying to order baklava!".format(image_name))
@@ -43,4 +43,7 @@ class FaceRecognize(object):
     def close_camera(self):
         vc = cv2.VideoCapture(0)
         vc.release()
+        cv2.destroyAllWindows()
+        current_datetime = datetime.datetime.now().strftime("%Y/%m/%d - %H:%M:%S")
+        print('{} Closing camera.'.format(current_datetime))
 
