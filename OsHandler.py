@@ -27,7 +27,7 @@ class OsHandler(object):
         return recent_lock_event_date >= recent_unlock_event_date
 
     def _get_last_screen_lock_event_date(self):
-        io_reg_read = subprocess.Popen(["log", "show", "--style", "syslog", "--debug", "--info", "--last", "6h"],
+        io_reg_read = subprocess.Popen(["log", "show", "--style", "syslog", "--debug", "--info", "--last", "1h"],
                                        stdout=subprocess.PIPE)
         result = subprocess.Popen(["grep", "SACLockScreenImmediate"], stdin=io_reg_read.stdout, stdout=subprocess.PIPE)
         io_reg_read.stdout.close()
@@ -35,7 +35,7 @@ class OsHandler(object):
         return le_timestamp
 
     def _get_last_screen_unlock_event_date(self):
-        io_reg_read = subprocess.Popen(["log", "show", "--style", "syslog", "--debug", "--info", "--last", "6h"],
+        io_reg_read = subprocess.Popen(["log", "show", "--style", "syslog", "--debug", "--info", "--last", "1h"],
                                        stdout=subprocess.PIPE)
         result = subprocess.Popen(["grep", "LUIAuthenticationServiceProvider deactivateWithContext:]_block_invoke"], stdin=io_reg_read.stdout, stdout=subprocess.PIPE)
         io_reg_read.stdout.close()
