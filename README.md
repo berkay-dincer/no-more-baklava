@@ -1,4 +1,4 @@
-# No-More-Baklava
+# no-more-baklava
 This is a project to prevent people in [Scotty](https://www.scotty.app) to order desert when your computer is idle. Applies to pretty much every company I've worked at so far :)
 
 ## How it works:
